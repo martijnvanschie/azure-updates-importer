@@ -10,51 +10,13 @@ namespace Azure.Updates.Importer.Cli.Tasks
     {
         private static readonly ILogger<ImportTask> _logger = LoggerManager.GetLogger<ImportTask>();
         private static readonly Settings _settings = ConfigurationManager.GetConfiguration().Settings;
-        private static readonly DateTime _dateImport = DateTime.Now;
-
         private const string FILENAME_LASTIMPORT = ".lastimport";
-
-        private DirectoryInfo _outputPath;
-        private DirectoryInfo _landngPath;
-        private DirectoryInfo _bronsePath;
-        private DirectoryInfo _silverPath;
-        private DirectoryInfo _goldPath;
 
         private Uri _updatesUrl;
 
         public ImportTask()
         {
-            ParseOutputPath();
             ReadUpdatesUrl();
-        }
-
-        private void ParseOutputPath()
-        {
-            _outputPath = new DirectoryInfo(_settings.OutputPath);
-            _landngPath = new DirectoryInfo(Path.Combine(_outputPath.FullName, "landing"));
-            _bronsePath = new DirectoryInfo(Path.Combine(_outputPath.FullName, "bronze"));
-            _silverPath = new DirectoryInfo(Path.Combine(_outputPath.FullName, "silver"));
-            _goldPath = new DirectoryInfo(Path.Combine(_outputPath.FullName, "gold"));
-
-            if (_landngPath.Exists == false)
-            {
-                _landngPath.Create();
-            }
-
-            if (_bronsePath.Exists == false)
-            {
-                _bronsePath.Create();
-            }
-
-            if (_silverPath.Exists == false)
-            {
-                _silverPath.Create();
-            }
-
-            if (_goldPath.Exists == false)
-            {
-                _goldPath.Create();
-            }
         }
 
         private void ReadUpdatesUrl()
@@ -76,7 +38,7 @@ namespace Azure.Updates.Importer.Cli.Tasks
                 .Select(feed => new RssFeed(feed))
                 .ToList();
 
-            var path = Path.Combine(_landngPath.FullName, $"{_dateImport:yyyyMMdd-HHmmss}-azureupdates.parquet");
+            var path = Path.Combine(ImporterContext.LandingPath.FullName, $"{ImporterContext.DateImport:yyyyMMdd-HHmmss}-azureupdates.parquet");
             ParquetHandler ph = new ParquetHandler();
             ph.WriteParquetFile(path, selectedFeeds);
 
