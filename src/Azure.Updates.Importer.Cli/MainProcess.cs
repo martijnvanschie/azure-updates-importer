@@ -2,6 +2,7 @@
 using CodeHollow.FeedReader;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Spectre.Console;
 using System.Text;
 
 namespace Azure.Updates.Importer.Cli
@@ -37,7 +38,7 @@ namespace Azure.Updates.Importer.Cli
             _updatesUrl = _configuration["Settings:UpdatesUrl"];
         }
 
-        internal async Task<int> StartAsync(string[] args)
+        internal async Task<int> RunAsync(string[] args)
         {
             _logger.LogInformation("Main process started {argsInfo}",
                 args.Length == 0 ? "without arguments" : $"with arguments: {string.Join(", ", args)}");

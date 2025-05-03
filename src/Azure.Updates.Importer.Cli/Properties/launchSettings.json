@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Azure.Updates.Importer.Cli": {
+      "commandName": "Project",
+      "commandLineArgs": ""
+    }
+  }
+}

@@ -1,11 +1,4 @@
-﻿using ParquetSharp.Schema;
-using ParquetSharp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CodeHollow.FeedReader;
+﻿using ParquetSharp;
 using Azure.Updates.Importer.Cli.Model;
 
 namespace Azure.Updates.Importer.Cli
