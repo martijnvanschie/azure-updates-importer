@@ -2,6 +2,7 @@
 using Azure.Updates.Importer.Cli.Model;
 using CodeHollow.FeedReader;
 using Microsoft.Extensions.Logging;
+using Spectre.Console;
 using System.Text;
 
 namespace Azure.Updates.Importer.Cli.Tasks
@@ -18,6 +19,8 @@ namespace Azure.Updates.Importer.Cli.Tasks
         {
             ReadUpdatesUrl();
         }
+
+        public StatusContext StatusContext { get; set; }
 
         private void ReadUpdatesUrl()
         {
