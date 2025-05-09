@@ -55,7 +55,15 @@ namespace Azure.Updates.Importer.Cli
 
             });
 
-            return await app.RunAsync(args);
+            try
+            {
+                return await app.RunAsync(args);
+            }
+            catch (Exception ex)
+            {
+                AnsiConsole.MarkupInterpolated($"[red]{ex.Message}[/]");
+                return -1;
+            }
         }
     }
 }

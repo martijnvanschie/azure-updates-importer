@@ -43,7 +43,7 @@ namespace Azure.Updates.Importer.Cli.Tasks
                 .Select(feed => new RssFeed(feed))
                 .ToList();
 
-            _logger.LogInformation("Selected feeds count after fitlering on publishing date: {count}", selectedFeeds.Count);
+            _logger.LogInformation("Selected feeds count after filtering on publishing date: [{count}]", selectedFeeds.Count);
 
             StatusContext?.Status("Writing parguet file");
             var path = Path.Combine(ImporterContext.LandingPath.FullName, $"{ImporterContext.DateImport:yyyyMMdd-HHmmss}-azureupdates.parquet");
@@ -55,6 +55,8 @@ namespace Azure.Updates.Importer.Cli.Tasks
             {
                 _logger.LogTrace("Feed : [{id}] - {title}", feed.Id, feed.Title);
             }
+
+            await WriteLastImportTimeAsync(ImporterContext.DateImport);
 
             return 0;
         }
@@ -69,7 +71,9 @@ namespace Azure.Updates.Importer.Cli.Tasks
                 return DateTime.ParseExact(dateString, "R", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.AssumeUniversal);
             }
 
-            return DateTime.Now;
+            var dt = DateTime.Now.AddMonths(-6);
+            _logger.LogDebug($"Last import file not found. Date set to [{dt}]");
+            return dt;
         }
 
         internal async Task WriteLastImportTimeAsync(DateTime date)
