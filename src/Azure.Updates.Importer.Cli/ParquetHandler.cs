@@ -1,5 +1,6 @@
 ﻿using ParquetSharp;
 using Azure.Updates.Importer.Cli.Model;
+using Azure.Updates.Importer.Cli.Core;
 
 namespace Azure.Updates.Importer.Cli
 {
@@ -45,7 +46,11 @@ namespace Azure.Updates.Importer.Cli
 
         public void WriteParquetFile(string filePath, List<RssFeed> feeds)
         {
-            if (feeds.Count == 0) return;
+            if (feeds.Count == 0)
+            {
+                AnsiConsoleLogger.LogWarning("No feeds to write to parquet file");
+                return;
+            }
 
             var schema = new Column[]
             {

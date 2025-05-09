@@ -26,7 +26,7 @@ Core.ConfigurationManager.Initiate(configuration);
 // Run the main process
 var serviceProvider = builder.Services.BuildServiceProvider();
 //var service = serviceProvider.GetRequiredService<MainProcess>();
-var service = serviceProvider.GetRequiredService<CliProcess>();
-var exitCode = await service.RunAsync(args);
+var process = serviceProvider.GetRequiredService<CliProcess>();
+var exitCode = await process.RunAsync(args);
 
 Environment.Exit(exitCode);
