@@ -26,7 +26,7 @@ namespace Azure.Updates.Importer.Cli.Commands
                 .StartAsync("Starting import...", async ctx =>
                 {
                     var task = new ImportTask();
-                    //task.StatusContext = ctx;
+                    task.StatusContext = ctx;
                     await task.RunAsync();
                 });
 

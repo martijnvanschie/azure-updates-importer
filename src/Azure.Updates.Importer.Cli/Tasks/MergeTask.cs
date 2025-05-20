@@ -27,30 +27,33 @@ namespace Azure.Updates.Importer.Cli.Tasks
 
             if (fi.Exists)
             {
-                AnsiConsoleLogger.LogInfo($"File [{outputFile}] already exists. Reading file for merger.", _logger);
-                _mergedList = ph.ReadParquetFile(fi.FullName);
+                AnsiConsoleLogger.LogDebug($"File [{outputFile}] already exists. Reading file for merger.", _logger);
+                _mergedList = ph.ReadRssFeedsFromParquetFile(fi.FullName);
             }
 
             var parquetFiles = GetParquetFilesFromLandingZone();
             if (parquetFiles.Count == 0)
             {
-                AnsiConsoleLogger.LogInfo("No parquet files found in the landing folder.");
+                AnsiConsoleLogger.LogInfo("No parquet files found in the landing folder. Exiting process.");
                 return 0;
             }
+
             AnsiConsoleLogger.LogInfo($"Found [{parquetFiles.Count}] parquet files in the landing folder.");
-
-
             foreach (var item in parquetFiles)
             {
-                AnsiConsoleLogger.LogInfo($"Processing file [{item.Name}], imported at [{item.CreationTime}].", _logger);
-                var feeds = ph.ReadParquetFile(item.FullName);
+                AnsiConsoleLogger.LogDebug($"Processing file [{item.Name}], imported at [{item.CreationTime}].", _logger);
+                var feeds = ph.ReadRssFeedsFromParquetFile(item.FullName);
                 var newFeeds = feeds.Where(feed => !_mergedList.Contains(feed));
                 _mergedList.AddRange(newFeeds);
+
+                AnsiConsoleLogger.LogDebug($"Creating backup of file [{item.FullName}]", _logger);
                 item.MoveTo($"{item.FullName}.backup");
+                AnsiConsoleLogger.LogInfo($"Backup of file [{item.FullName}] created successfully", _logger);
             }
 
-            AnsiConsoleLogger.LogInfo($"Writing merged file [{outputFile}]", _logger);
-            ph.WriteParquetFile(outputFile, _mergedList);
+            AnsiConsoleLogger.LogDebug($"Writing merged file [{outputFile}]", _logger);
+            ph.WriteRawRssFeedsToParquetFile(outputFile, _mergedList);
+            AnsiConsoleLogger.LogInfo($"Succesfully written [{_mergedList.Count}] merged feeds to file [{outputFile}].", _logger);
 
             return 0;
         }
@@ -58,7 +61,7 @@ namespace Azure.Updates.Importer.Cli.Tasks
         private List<FileInfo> GetParquetFilesFromLandingZone()
         {
             var directory = new DirectoryInfo(ImporterContext.LandingPath.FullName);
-            _logger.LogInformation("Reading files from source directory [{directory}]", directory);
+            _logger.LogDebug("Reading files from source directory [{directory}]", directory);
 
             var files = directory.GetFiles("*.parquet", SearchOption.TopDirectoryOnly).ToList();
             _logger.LogInformation($"Found [{files.Count}] parquet files in the landing folder.");

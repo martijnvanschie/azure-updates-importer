@@ -54,7 +54,7 @@ namespace Azure.Updates.Importer.Cli
                 .ToList();
 
             ParquetHandler ph = new ParquetHandler();
-            ph.WriteParquetFile($"c:\\TEMP\\{_dateImport.ToString("yyyyMMdd-HHmmss")}-azureupdates.parquet", selectedFeeds);
+            ph.WriteRawRssFeedsToParquetFile($"c:\\TEMP\\{_dateImport.ToString("yyyyMMdd-HHmmss")}-azureupdates.parquet", selectedFeeds);
 
             //var test = ph.ReadParquetFile($"c:\\TEMP\\{_dateImport.ToString("yyyyMMdd-HHmmss")}-azureupdates.parquet");
             //var test2 = ph.ReadParquetFile($"c:\\TEMP\\{_dateImport.ToString("yyyyMMdd-HHmmss")}-azureupdates.parquet");

@@ -6,7 +6,7 @@ namespace Azure.Updates.Importer.Cli
 {
     public class ParquetHandler
     {
-        public List<RssFeed> ReadParquetFile(string filePath)
+        public List<RssFeed> ReadRssFeedsFromParquetFile(string filePath)
         {
             var data = new List<RssFeed>();
 
@@ -44,7 +44,7 @@ namespace Azure.Updates.Importer.Cli
             return data;
         }
 
-        public void WriteParquetFile(string filePath, List<RssFeed> feeds)
+        public void WriteRawRssFeedsToParquetFile(string filePath, List<RssFeed> feeds)
         {
             if (feeds.Count == 0)
             {
@@ -84,6 +84,66 @@ namespace Azure.Updates.Importer.Cli
 
                     using var categories = rowGroupWriter.NextColumn().LogicalWriter<string>();
                     categories.WriteBatch(feeds.ConvertAll(p => p.Categories).ToArray());
+                }
+
+                writer.Close();
+            }
+        }
+
+        public List<AzureService> ReadAzureServicesFromParquetFile(string filePath)
+        {
+            var data = new List<AzureService>();
+
+            using (var reader = new ParquetFileReader(filePath))
+            {
+                for (int rowGroupIndex = 0; rowGroupIndex < reader.FileMetaData.NumRowGroups; rowGroupIndex++)
+                {
+                    using (var rowGroupReader = reader.RowGroup(rowGroupIndex))
+                    {
+                        var groupNumRows = checked((int)rowGroupReader.MetaData.NumRows);
+
+                        var ids = rowGroupReader.Column(0).LogicalReader<string>().ReadAll(groupNumRows);
+                        var titles = rowGroupReader.Column(1).LogicalReader<string>().ReadAll(groupNumRows);
+
+                        for (int i = 0; i < ids.Length; i++)
+                        {
+                            data.Add(new AzureService
+                            {
+                                Id = ids[i],
+                                Name = titles[i]
+                            });
+                        }
+                    }
+                }
+            }
+
+            return data;
+        }
+
+        public void WriteAzureServicesToParquetFile(string filePath, List<AzureService> services)
+        {
+            if (services.Count == 0)
+            {
+                AnsiConsoleLogger.LogWarning("No services to write to parquet file");
+                return;
+            }
+
+            var schema = new Column[]
+            {
+                new Column<string>("Id"),
+                new Column<string>("Name")
+            };
+
+            using (var writer = new ParquetFileWriter(filePath, schema))
+            {
+                using (var rowGroupWriter = writer.AppendRowGroup())
+                {
+                    // Write each column
+                    using var ids = rowGroupWriter.NextColumn().LogicalWriter<string>();
+                    ids.WriteBatch(services.ConvertAll(p => p.Id).ToArray());
+
+                    using var titles = rowGroupWriter.NextColumn().LogicalWriter<string>();
+                    titles.WriteBatch(services.ConvertAll(p => p.Name).ToArray());
                 }
 
                 writer.Close();

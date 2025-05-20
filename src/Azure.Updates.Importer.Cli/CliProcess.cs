@@ -38,11 +38,11 @@ namespace Azure.Updates.Importer.Cli
                 //}
 
                 config.AddCommand<Commands.ImportAzureFeedsCommand>("import")
-                    .WithDescription("Import Azure updates feeds")
+                    .WithDescription("Import raw Azure updates feeds data into the landing zone")
                     .WithExample(new[] { "import" });
 
                 config.AddCommand<Commands.MergeAzureFeedsCommand>("merge")
-                    .WithDescription("Merge Azure updates feeds")
+                    .WithDescription("Merge raw Azure updates feeds into the Bronze layer")
                     .WithExample(new[] { "merge" });
 
                 config.ValidateExamples();

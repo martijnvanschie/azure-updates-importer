@@ -48,7 +48,7 @@ namespace Azure.Updates.Importer.Cli.Tasks
             StatusContext?.Status("Writing parguet file");
             var path = Path.Combine(ImporterContext.LandingPath.FullName, $"{ImporterContext.DateImport:yyyyMMdd-HHmmss}-azureupdates.parquet");
             ParquetHandler ph = new ParquetHandler();
-            ph.WriteParquetFile(path, selectedFeeds);
+            ph.WriteRawRssFeedsToParquetFile(path, selectedFeeds);
             AnsiConsoleLogger.LogSuccess($"Parquet file written to {path}");
 
             foreach (var feed in selectedFeeds)
