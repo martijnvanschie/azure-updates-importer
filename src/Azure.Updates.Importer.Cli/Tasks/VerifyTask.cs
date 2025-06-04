@@ -1,5 +1,6 @@
 ﻿using Azure.Updates.Importer.Cli.Core;
 using Azure.Updates.Importer.Cli.Model;
+using Azure.Updates.Importer.Data;
 using Microsoft.Extensions.Logging;
 using Spectre.Console;
 
@@ -49,8 +50,11 @@ namespace Azure.Updates.Importer.Cli.Tasks
                 var newFeeds = feeds.Where(feed => !_mergedList2.Contains(feed));
                 _mergedList2.AddRange(newFeeds);
             }
-
             AnsiConsoleLogger.LogInfo($"Found total of [{_mergedList2.Count}] unique feeds in Brons files", _logger);
+
+            AzureUpdatesClient azureUpdatesClient = new AzureUpdatesClient();
+            var count = await azureUpdatesClient.SelectCountAsync();
+            AnsiConsoleLogger.LogInfo($"There are [{count}] records in the database.", _logger);
 
             return 0;
         }

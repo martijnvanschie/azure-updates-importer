@@ -45,9 +45,14 @@ namespace Azure.Updates.Importer.Cli
                     .WithDescription("Merge raw Azure updates feeds into the Bronze layer")
                     .WithExample(new[] { "merge" });
 
+                config.AddCommand<Commands.PrepareAzureFeedsCommand>("prepare")
+                    .WithDescription("Filter, Clean and Augment files moving them to the Silver layer")
+                    .WithExample(new[] { "prepare" });
+
                 config.AddCommand<Commands.VerifyCommand>("verify")
                     .WithDescription("Verify the integrity of the landing zone and bronze data")
                     .WithExample(new[] { "verify" });
+
                 config.ValidateExamples();
 
                 config.SetExceptionHandler((ex, resolver) =>
