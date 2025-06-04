@@ -1,0 +1,61 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 365.1847511806298,
+            "y": 27
+          },
+          "nodeIndex": "AzureUpdateCategories",
+          "nodeLineageTag": "676d468d-3ff7-49d5-8e54-29aec1af065d",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 769.36163941535983,
+            "y": 0
+          },
+          "nodeIndex": "AzureUpdates",
+          "nodeLineageTag": "621a96c0-c997-49ce-ad4f-c18c7c82bedc",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 2
+          },
+          "nodeIndex": "Categories",
+          "nodeLineageTag": "133be800-6cd6-42ce-97ca-6352f48c3ff8",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

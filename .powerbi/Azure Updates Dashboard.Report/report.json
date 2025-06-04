@@ -1,0 +1,60 @@
+{
+  "config": "{\"version\":\"5.59\",\"themeCollection\":{\"baseTheme\":{\"name\":\"CY24SU10\",\"version\":\"5.64\",\"type\":2}},\"activeSectionIndex\":0,\"defaultDrillFilterOtherVisuals\":true,\"settings\":{\"useNewFilterPaneExperience\":true,\"allowChangeFilterTypes\":true,\"useStylableVisualContainerHeader\":true,\"queryLimitOption\":6,\"useEnhancedTooltips\":true,\"exportDataMode\":1,\"useDefaultAggregateDisplayName\":true},\"objects\":{\"section\":[{\"properties\":{\"verticalAlignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Top'\"}}}}}]}}",
+  "layoutOptimization": 0,
+  "resourcePackages": [
+    {
+      "resourcePackage": {
+        "disabled": false,
+        "items": [
+          {
+            "name": "CY24SU10",
+            "path": "BaseThemes/CY24SU10.json",
+            "type": 202
+          }
+        ],
+        "name": "SharedResources",
+        "type": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "config": "{\"objects\":{\"outspacePane\":[{\"properties\":{\"width\":{\"expr\":{\"Literal\":{\"Value\":\"186L\"}}}}}]}}",
+      "displayName": "Page 1",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "fc1f72f1812e07ddc5d4",
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"2b837a80db67fa418d55\",\"layouts\":[{\"id\":0,\"position\":{\"x\":8,\"y\":0,\"z\":0,\"width\":248,\"height\":240,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Categories.Title\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"c\",\"Entity\":\"Categories\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Title\"},\"Name\":\"Categories.Title\",\"NativeReferenceName\":\"Title\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Basic'\"}}}}}],\"general\":[{\"properties\":{}}]}}}",
+          "filters": "[{\"name\":\"3d44524256c0b4e7cfd3\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Categories\"}},\"Property\":\"Title\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"c\",\"Entity\":\"Categories\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Title\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'Launched'\"}}],[{\"Literal\":{\"Value\":\"'In preview'\"}}],[{\"Literal\":{\"Value\":\"'In development'\"}}]]}}}]},\"type\":\"Categorical\",\"howCreated\":0,\"objects\":{},\"isHiddenInViewMode\":false}]",
+          "height": 240.00,
+          "width": 248.00,
+          "x": 8.00,
+          "y": 0.00,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"3e5e7a0dfd9ced921a12\",\"layouts\":[{\"id\":0,\"position\":{\"x\":256,\"y\":0,\"z\":2,\"width\":448,\"height\":240,\"tabOrder\":2}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Categories.Title\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"c\",\"Entity\":\"Categories\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Title\"},\"Name\":\"Categories.Title\",\"NativeReferenceName\":\"Title\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Basic'\"}}}}}],\"general\":[{\"properties\":{}}]}}}",
+          "filters": "[{\"name\":\"60a0f8cd76901d333863\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Categories\"}},\"Property\":\"Title\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"c\",\"Entity\":\"Categories\",\"Type\":0}],\"Where\":[{\"Condition\":{\"Not\":{\"Expression\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"Title\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'In development'\"}}],[{\"Literal\":{\"Value\":\"'In preview'\"}}],[{\"Literal\":{\"Value\":\"'Launched'\"}}]]}}}}}]},\"type\":\"Categorical\",\"howCreated\":0,\"objects\":{\"general\":[{\"properties\":{\"isInvertedSelectionMode\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]},\"isHiddenInViewMode\":false}]",
+          "height": 240.00,
+          "width": 448.00,
+          "x": 256.00,
+          "y": 0.00,
+          "z": 2.00
+        },
+        {
+          "config": "{\"name\":\"f9753e62cfa182e9ac42\",\"layouts\":[{\"id\":0,\"position\":{\"x\":8,\"y\":304,\"z\":1,\"width\":1240,\"height\":408,\"tabOrder\":1}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"AzureUpdates.Id\"},{\"queryRef\":\"AzureUpdates.DatePublished.Variation.Date Hierarchy.Year\"},{\"queryRef\":\"AzureUpdates.DatePublished.Variation.Date Hierarchy.Quarter\"},{\"queryRef\":\"AzureUpdates.DatePublished.Variation.Date Hierarchy.Month\"},{\"queryRef\":\"AzureUpdates.DatePublished.Variation.Date Hierarchy.Day\"},{\"queryRef\":\"AzureUpdates.Title\"},{\"queryRef\":\"AzureUpdates.Description\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"a\",\"Entity\":\"AzureUpdates\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"Id\"},\"Name\":\"AzureUpdates.Id\",\"NativeReferenceName\":\"Id\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"Title\"},\"Name\":\"AzureUpdates.Title\",\"NativeReferenceName\":\"Title\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"Description\"},\"Name\":\"AzureUpdates.Description\",\"NativeReferenceName\":\"Description\"},{\"HierarchyLevel\":{\"Expression\":{\"Hierarchy\":{\"Expression\":{\"PropertyVariationSource\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Name\":\"Variation\",\"Property\":\"DatePublished\"}},\"Hierarchy\":\"Date Hierarchy\"}},\"Level\":\"Year\"},\"Name\":\"AzureUpdates.DatePublished.Variation.Date Hierarchy.Year\",\"NativeReferenceName\":\"DatePublished Year\"},{\"HierarchyLevel\":{\"Expression\":{\"Hierarchy\":{\"Expression\":{\"PropertyVariationSource\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Name\":\"Variation\",\"Property\":\"DatePublished\"}},\"Hierarchy\":\"Date Hierarchy\"}},\"Level\":\"Quarter\"},\"Name\":\"AzureUpdates.DatePublished.Variation.Date Hierarchy.Quarter\",\"NativeReferenceName\":\"DatePublished Quarter\"},{\"HierarchyLevel\":{\"Expression\":{\"Hierarchy\":{\"Expression\":{\"PropertyVariationSource\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Name\":\"Variation\",\"Property\":\"DatePublished\"}},\"Hierarchy\":\"Date Hierarchy\"}},\"Level\":\"Month\"},\"Name\":\"AzureUpdates.DatePublished.Variation.Date Hierarchy.Month\",\"NativeReferenceName\":\"DatePublished Month\"},{\"HierarchyLevel\":{\"Expression\":{\"Hierarchy\":{\"Expression\":{\"PropertyVariationSource\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Name\":\"Variation\",\"Property\":\"DatePublished\"}},\"Hierarchy\":\"Date Hierarchy\"}},\"Level\":\"Day\"},\"Name\":\"AzureUpdates.DatePublished.Variation.Date Hierarchy.Day\",\"NativeReferenceName\":\"DatePublished Day\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"HierarchyLevel\":{\"Expression\":{\"Hierarchy\":{\"Expression\":{\"PropertyVariationSource\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Name\":\"Variation\",\"Property\":\"DatePublished\"}},\"Hierarchy\":\"Date Hierarchy\"}},\"Level\":\"Year\"}}},{\"Direction\":2,\"Expression\":{\"HierarchyLevel\":{\"Expression\":{\"Hierarchy\":{\"Expression\":{\"PropertyVariationSource\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Name\":\"Variation\",\"Property\":\"DatePublished\"}},\"Hierarchy\":\"Date Hierarchy\"}},\"Level\":\"Month\"}}},{\"Direction\":2,\"Expression\":{\"HierarchyLevel\":{\"Expression\":{\"Hierarchy\":{\"Expression\":{\"PropertyVariationSource\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Name\":\"Variation\",\"Property\":\"DatePublished\"}},\"Hierarchy\":\"Date Hierarchy\"}},\"Level\":\"Day\"}}}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"columnWidth\":[{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"740.7799351516484D\"}}}},\"selector\":{\"metadata\":\"AzureUpdates.Title\"}},{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"74.55733359814491D\"}}}},\"selector\":{\"metadata\":\"AzureUpdates.Id\"}}]}}}",
+          "filters": "[]",
+          "height": 408.00,
+          "width": 1240.00,
+          "x": 8.00,
+          "y": 304.00,
+          "z": 1.00
+        }
+      ],
+      "width": 1280.00
+    }
+  ]
+}

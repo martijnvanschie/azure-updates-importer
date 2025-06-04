@@ -1,0 +1,88 @@
+table AzureUpdates
+	lineageTag: 621a96c0-c997-49ce-ad4f-c18c7c82bedc
+
+	column Id
+		dataType: string
+		lineageTag: 9d0a4c72-055c-42b5-a550-97d4b31abbc9
+		summarizeBy: none
+		sourceColumn: Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Title
+		dataType: string
+		lineageTag: 2f820c56-1f64-4b8e-af1c-90dfa4a3c5f0
+		summarizeBy: none
+		sourceColumn: Title
+
+		annotation SummarizationSetBy = Automatic
+
+	column Description
+		dataType: string
+		lineageTag: 305fb2a5-1b6a-4f35-9568-89aa4c7263ac
+		summarizeBy: none
+		sourceColumn: Description
+
+		annotation SummarizationSetBy = Automatic
+
+	column Url
+		dataType: string
+		lineageTag: 1284c5c9-936e-4656-b0f6-a8867f3f09c1
+		summarizeBy: none
+		sourceColumn: Url
+
+		annotation SummarizationSetBy = Automatic
+
+	column DatePublished
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: c68e9381-5ed3-48a2-9be7-02f3c30889d8
+		summarizeBy: none
+		sourceColumn: DatePublished
+
+		variation Variation
+			isDefault
+			relationship: e54ad9db-3df1-46bf-93f1-f6b300790473
+			defaultHierarchy: LocalDateTable_991562e2-ffb3-4c24-acc2-9b555fa29a71.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateCreated
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: aa844c9f-71b6-408a-900b-4b80744dae3e
+		summarizeBy: none
+		sourceColumn: DateCreated
+
+		variation Variation
+			isDefault
+			relationship: e721a4b4-8f60-48d6-bcda-6a29d4665463
+			defaultHierarchy: LocalDateTable_930254f9-db80-42bd-9f60-04663790379d.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateModified
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 97e1a28c-edf8-4625-bdf7-c5d47292e23b
+		summarizeBy: none
+		sourceColumn: DateModified
+
+		variation Variation
+			isDefault
+			relationship: b44b1546-d8b6-4b5c-901a-dd137c6e8183
+			defaultHierarchy: LocalDateTable_a7ee3464-97c4-4baf-9390-2da198bbb29e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition AzureUpdates = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("mvsdbs01.database.windows.net", "AzureUpdatesTestDb"),
+				    dbo_AzureUpdates = Source{[Schema="dbo",Item="AzureUpdates"]}[Data]
+				in
+				    dbo_AzureUpdates
+
+	annotation PBI_ResultType = Table
+

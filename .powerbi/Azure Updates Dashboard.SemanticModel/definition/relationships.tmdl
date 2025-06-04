@@ -1,0 +1,39 @@
+relationship e54ad9db-3df1-46bf-93f1-f6b300790473
+	joinOnDateBehavior: datePartOnly
+	fromColumn: AzureUpdates.DatePublished
+	toColumn: LocalDateTable_991562e2-ffb3-4c24-acc2-9b555fa29a71.Date
+
+relationship e721a4b4-8f60-48d6-bcda-6a29d4665463
+	joinOnDateBehavior: datePartOnly
+	fromColumn: AzureUpdates.DateCreated
+	toColumn: LocalDateTable_930254f9-db80-42bd-9f60-04663790379d.Date
+
+relationship b44b1546-d8b6-4b5c-901a-dd137c6e8183
+	joinOnDateBehavior: datePartOnly
+	fromColumn: AzureUpdates.DateModified
+	toColumn: LocalDateTable_a7ee3464-97c4-4baf-9390-2da198bbb29e.Date
+
+relationship 6c31a6df-503b-488d-b8fd-f93b91714194
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Categories.DateCreated
+	toColumn: LocalDateTable_2abed092-9279-4224-8757-a935d7a1b851.Date
+
+relationship deae74e2-0fea-4d28-884e-8fec43af3ae5
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Categories.DateModified
+	toColumn: LocalDateTable_bd47ee84-c88c-431a-9ad1-416fe3a29f2a.Date
+
+relationship 5afe0641-0610-4b1a-9428-1c8e9cb010e1
+	crossFilteringBehavior: bothDirections
+	fromColumn: AzureUpdateCategories.AzureUpdateId
+	toColumn: AzureUpdates.Id
+
+	annotation PBI_IsFromSource = FS
+
+relationship 5451574c-1d29-45db-9551-3752bba83183
+	crossFilteringBehavior: bothDirections
+	fromColumn: AzureUpdateCategories.CategoryId
+	toColumn: Categories.Id
+
+	annotation PBI_IsFromSource = FS
+

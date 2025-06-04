@@ -1,0 +1,61 @@
+table Categories
+	lineageTag: 133be800-6cd6-42ce-97ca-6352f48c3ff8
+
+	column Id
+		dataType: int64
+		formatString: 0
+		lineageTag: a4b7ac8f-7f0f-478f-8b7b-fb8bbbe2d88a
+		summarizeBy: none
+		sourceColumn: Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Title
+		dataType: string
+		lineageTag: 4961e8cb-4979-4285-897b-4a1774497c76
+		summarizeBy: none
+		sourceColumn: Title
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateCreated
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: b5f49ab5-0075-4278-9db8-3da2a03b4143
+		summarizeBy: none
+		sourceColumn: DateCreated
+
+		variation Variation
+			isDefault
+			relationship: 6c31a6df-503b-488d-b8fd-f93b91714194
+			defaultHierarchy: LocalDateTable_2abed092-9279-4224-8757-a935d7a1b851.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateModified
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 73e419e7-a82e-4145-8218-9fa014900746
+		summarizeBy: none
+		sourceColumn: DateModified
+
+		variation Variation
+			isDefault
+			relationship: deae74e2-0fea-4d28-884e-8fec43af3ae5
+			defaultHierarchy: LocalDateTable_bd47ee84-c88c-431a-9ad1-416fe3a29f2a.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Categories = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("mvsdbs01.database.windows.net", "AzureUpdatesTestDb"),
+				    dbo_Categories = Source{[Schema="dbo",Item="Categories"]}[Data]
+				in
+				    dbo_Categories
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

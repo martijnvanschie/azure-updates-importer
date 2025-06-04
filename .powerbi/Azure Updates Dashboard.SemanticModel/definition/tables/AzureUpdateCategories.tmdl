@@ -1,0 +1,31 @@
+table AzureUpdateCategories
+	lineageTag: 676d468d-3ff7-49d5-8e54-29aec1af065d
+
+	column AzureUpdateId
+		dataType: string
+		lineageTag: 6e839980-cfd7-4614-bf8e-11098924b94f
+		summarizeBy: none
+		sourceColumn: AzureUpdateId
+
+		annotation SummarizationSetBy = Automatic
+
+	column CategoryId
+		dataType: int64
+		formatString: 0
+		lineageTag: bfcdffd5-5400-489c-a7a3-62531e55865c
+		summarizeBy: none
+		sourceColumn: CategoryId
+
+		annotation SummarizationSetBy = Automatic
+
+	partition AzureUpdateCategories = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("mvsdbs01.database.windows.net", "AzureUpdatesTestDb"),
+				    dbo_AzureUpdateCategories = Source{[Schema="dbo",Item="AzureUpdateCategories"]}[Data]
+				in
+				    dbo_AzureUpdateCategories
+
+	annotation PBI_ResultType = Table
+

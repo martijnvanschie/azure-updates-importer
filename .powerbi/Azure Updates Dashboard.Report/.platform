@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Azure Updates Dashboard"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "c82c903d-17b6-4437-8f79-90f3eba419d5"
+  }
+}

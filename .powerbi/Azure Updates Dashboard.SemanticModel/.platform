@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Azure Updates Dashboard"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "08ed84a3-8de3-46da-9057-3c041aba9bb5"
+  }
+}
