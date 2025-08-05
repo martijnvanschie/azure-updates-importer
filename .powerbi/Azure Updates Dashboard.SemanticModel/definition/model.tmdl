@@ -10,7 +10,7 @@ annotation PBI_QueryOrder = ["AzureUpdateCategories","AzureUpdates","Categories"
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
-annotation PBIDesktopVersion = 2.143.1204.0 (25.05)+23c84aace645781dd62b8a26eb0418c7e6a84b72
+annotation PBIDesktopVersion = 2.145.1457.0 (25.07)+6e87ffa743c5aa106a85a0b5e383d76d522045ba
 
 annotation PBI_ProTooling = ["DevMode"]
 
