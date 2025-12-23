@@ -1,0 +1,8 @@
+CREATE TABLE [dbo].[Tags]
+(
+  [Id] INT IDENTITY(0,1) NOT NULL,
+  [Value] NVARCHAR(250) NOT NULL,
+  [DateCreated] DATETIMEOFFSET DEFAULT (getutcdate()) NOT NULL,
+  [DateModified] DATETIMEOFFSET DEFAULT (getutcdate()) NOT NULL,
+  CONSTRAINT [PK_Tags] PRIMARY KEY ([Id])
+)
