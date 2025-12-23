@@ -31,7 +31,6 @@ namespace Azure.Updates.Importer.Cli.Tasks
         {
             _logger.LogInformation("Main process started.");
 
-            StatusContext?.Status("Calling RSS endpoint");
             var feeds = await FeedReader.ReadAsync(_updatesUrl.AbsoluteUri);
             _logger.LogInformation("Feed count: {count}", feeds.Items.Count);
 

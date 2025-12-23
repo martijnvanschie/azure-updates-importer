@@ -30,7 +30,7 @@ namespace Azure.Updates.Importer.Cli.Commands
                     await task.RunAsync();
                 });
 
-            AnsiConsoleLogger.LogInfo("Merge done");
+            AnsiConsoleLogger.LogInfo("Verification finished.");
 
             return 0;
         }
