@@ -50,7 +50,7 @@ namespace Azure.Updates.Importer.Cli
 
             var selectedFeeds = feeds.Items
                 .Where(feed => feed.PublishingDate > lastImportDate)
-                .Select(feed => new RssFeed(feed))
+                .Select(feed => new ReleaseCommunicationItem(feed))
                 .ToList();
 
             ParquetHandler ph = new ParquetHandler();

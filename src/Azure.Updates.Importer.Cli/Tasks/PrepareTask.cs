@@ -58,13 +58,13 @@ namespace Azure.Updates.Importer.Cli.Tasks
                 
                 //var filteredAzureServices = azureServices.Distinct().ToList();
 
-                foreach (var feed in feeds)
+                await Parallel.ForEachAsync(feeds, new ParallelOptions { MaxDegreeOfParallelism = 10 }, async (feed, cancellationToken) =>
                 {
                     AzureUpdateEntity service = new AzureUpdateEntity
                     {
                         Id = feed.Id,
                         Title = feed.Title,
-                        Description = feed.Description,
+                        Description = Utils.StripHtml(feed.Description),
                         Url = feed.Link,
                         DatePublished = DateTime.Parse(feed.PublishingDateUtc)
                     };
@@ -90,7 +90,10 @@ namespace Azure.Updates.Importer.Cli.Tasks
 
                         await azureUpdatesClient.InsertAzureUpdateCategory(service, categoryEntity);
                     }
-                }
+                });
+
+                StatusContext.Status = $"Creating backup of file [[{item.FullName}]]";
+                item.MoveTo($"{item.FullName}.backup");
 
                 //ph.WriteAzureServicesToParquetFile(Path.Combine(ImporterContext.SilverPath.FullName, "services.parguet"), filteredAzureServices);
 

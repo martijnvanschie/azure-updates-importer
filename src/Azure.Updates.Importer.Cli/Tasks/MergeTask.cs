@@ -18,7 +18,7 @@ namespace Azure.Updates.Importer.Cli.Tasks
 
         public async Task<int> RunAsync()
         {
-            List<RssFeed> _mergedList = new List<RssFeed>();
+            List<ReleaseCommunicationItem> _mergedList = new List<ReleaseCommunicationItem>();
             ParquetHandler ph = new ParquetHandler();
 
             var weekNumber = DateTimeUtils.GetWeekNumber(ImporterContext.DateImport);
@@ -45,15 +45,18 @@ namespace Azure.Updates.Importer.Cli.Tasks
                 var feeds = ph.ReadRssFeedsFromParquetFile(item.FullName);
                 var newFeeds = feeds.Where(feed => !_mergedList.Contains(feed));
                 _mergedList.AddRange(newFeeds);
-
-                AnsiConsoleLogger.LogDebug($"Creating backup of file [{item.FullName}]", _logger);
-                item.MoveTo($"{item.FullName}.backup");
-                AnsiConsoleLogger.LogInfo($"Backup of file [{item.FullName}] created successfully", _logger);
             }
 
             AnsiConsoleLogger.LogDebug($"Writing merged file [{outputFile}]", _logger);
             ph.WriteRawRssFeedsToParquetFile(outputFile, _mergedList);
             AnsiConsoleLogger.LogInfo($"Succesfully written [{_mergedList.Count}] merged feeds to file [{outputFile}].", _logger);
+
+            foreach (var item in parquetFiles)
+            {
+                AnsiConsoleLogger.LogDebug($"Creating backup of file [{item.FullName}]", _logger);
+                item.MoveTo($"{item.FullName}.backup");
+                AnsiConsoleLogger.LogInfo($"Backup of file [{item.FullName}] created successfully", _logger);
+            }
 
             return 0;
         }
@@ -65,7 +68,7 @@ namespace Azure.Updates.Importer.Cli.Tasks
 
             var files = directory.GetFiles("*.parquet", SearchOption.TopDirectoryOnly).ToList();
             _logger.LogInformation($"Found [{files.Count}] parquet files in the landing folder.");
-            
+
             return files;
         }
     }

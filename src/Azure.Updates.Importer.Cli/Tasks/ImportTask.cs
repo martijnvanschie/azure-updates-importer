@@ -39,7 +39,7 @@ namespace Azure.Updates.Importer.Cli.Tasks
 
             var selectedFeeds = feeds.Items
                 .Where(feed => feed.PublishingDate > lastImportDate)
-                .Select(feed => new RssFeed(feed))
+                .Select(feed => new ReleaseCommunicationItem(feed))
                 .ToList();
 
             _logger.LogInformation("Selected feeds count after filtering on publishing date: [{count}]", selectedFeeds.Count);

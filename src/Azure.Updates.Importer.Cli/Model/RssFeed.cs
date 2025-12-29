@@ -1,14 +1,49 @@
-﻿using CodeHollow.FeedReader;
+﻿using Azure.Updates.Importer.Data.DataModels;
+using CodeHollow.FeedReader;
 
 namespace Azure.Updates.Importer.Cli.Model
 {
-    public class RssFeed
+    // public class ReleaseCommunicationItem
+    // {
+    //     public ReleaseCommunicationItem()
+    //     {
+            
+    //     }
+    // }
+
+    public class AzureReleaseCommunicationItem : ReleaseCommunicationItem
     {
-        public RssFeed()
+        public AzureReleaseCommunicationItem()
         {
             
         }
-        public RssFeed(FeedItem feed)
+    }
+
+    public class ReleaseCommunicationItem
+    {
+        public ReleaseCommunicationItem()
+        {
+            
+        }
+
+        public ReleaseCommunicationItem(ReleaseCommunicationDto dto)
+        {
+            Id = dto.Id;
+            Title = dto.Title;
+            Description = dto.Description;
+            PublishingDateUtc = dto.Created.ToString();
+            Link = string.Format("https://azure.microsoft.com/en-us/updates?id={0}", dto.Id);
+            
+            // Merge productCategories, tags, and products with comma separator
+            var allCategories = new List<string>();
+            if (dto.ProductCategories != null) allCategories.AddRange(dto.ProductCategories);
+            if (dto.Tags != null) allCategories.AddRange(dto.Tags);
+            if (dto.Products != null) allCategories.AddRange(dto.Products);
+            
+            Categories = string.Join(", ", allCategories);
+        }
+
+        public ReleaseCommunicationItem(FeedItem feed)
         {
             Id = feed.Id;
             Title = feed.Title;
@@ -30,7 +65,7 @@ namespace Azure.Updates.Importer.Cli.Model
             if (obj is null)
                 return base.Equals(obj);
 
-            if (obj is RssFeed other)
+            if (obj is ReleaseCommunicationItem other)
                 return Id == other.Id;
 
             return false;

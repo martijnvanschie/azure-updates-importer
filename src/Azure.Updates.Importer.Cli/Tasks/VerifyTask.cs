@@ -15,11 +15,11 @@ namespace Azure.Updates.Importer.Cli.Tasks
 
         public async Task<int> RunAsync()
         {
-            List<RssFeed> _mergedList = new List<RssFeed>();
-            List<RssFeed> _mergedList2 = new List<RssFeed>();
+            List<ReleaseCommunicationItem> _mergedList = new List<ReleaseCommunicationItem>();
+            List<ReleaseCommunicationItem> _mergedList2 = new List<ReleaseCommunicationItem>();
             ParquetHandler ph = new ParquetHandler();
 
-            var parquetFiles = GetParquetFilesFromLandingZone();
+            var parquetFiles = ImporterContext.GetParquetFilesFromLandingZone(true);
             if (parquetFiles.Count == 0)
             {
                 AnsiConsoleLogger.LogInfo("No parquet files found in the landing folder. Exiting process.");
@@ -36,7 +36,7 @@ namespace Azure.Updates.Importer.Cli.Tasks
 
             AnsiConsoleLogger.LogInfo($"Found total of [{_mergedList.Count}] unique feeds in Landing Zone files", _logger);
 
-            var parquetFiles2 = GetParquetFilesFromBronzeZone();
+            var parquetFiles2 = ImporterContext.GetParquetFilesFromBronzeZone(true);
             if (parquetFiles2.Count == 0)
             {
                 AnsiConsoleLogger.LogInfo("No parquet files found in the landing folder. Exiting process.");
@@ -57,17 +57,6 @@ namespace Azure.Updates.Importer.Cli.Tasks
             AnsiConsoleLogger.LogInfo($"There are [{count}] records in the database.", _logger);
 
             return 0;
-        }
-
-        private List<FileInfo> GetParquetFilesFromLandingZone()
-        {
-            var directory = new DirectoryInfo(ImporterContext.LandingPath.FullName);
-            _logger.LogDebug("Reading files from source directory [{directory}]", directory);
-
-            var files = directory.GetFiles("*.parquet*", SearchOption.TopDirectoryOnly).ToList();
-            _logger.LogInformation($"Found [{files.Count}] parquet files in the landing folder.");
-
-            return files;
         }
 
         private List<FileInfo> GetParquetFilesFromBronzeZone()

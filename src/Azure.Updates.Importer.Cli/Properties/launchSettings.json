@@ -2,7 +2,7 @@
   "profiles": {
     "Azure.Updates.Importer.Cli": {
       "commandName": "Project",
-      "commandLineArgs": "prepare"
+      "commandLineArgs": "importv2"
     }
   }
 }

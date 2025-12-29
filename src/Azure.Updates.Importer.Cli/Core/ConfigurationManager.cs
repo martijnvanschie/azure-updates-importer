@@ -29,5 +29,6 @@ namespace Azure.Updates.Importer.Cli.Core
     {
         public string? OutputPath { get; set; }
         public string? UpdatesUrl { get; set; }
+        public string? ReleaseCommunicationsUrl { get; set; }
     }
 }

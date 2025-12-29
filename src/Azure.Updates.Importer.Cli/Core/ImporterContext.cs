@@ -73,5 +73,41 @@ namespace Azure.Updates.Importer.Cli.Core
                 _goldPath.Create();
             }
         }
+
+        internal static List<FileInfo> GetParquetFilesFromLandingZone(bool includingBackups = false)
+        {
+            var directory = new DirectoryInfo(LandingPath.FullName);
+            _logger.LogDebug("Reading files from source directory [{directory}]", directory);
+
+            var files = directory.GetFiles("*.parquet", SearchOption.TopDirectoryOnly).ToList();
+
+            if (includingBackups)
+            {
+                var backupFiles = directory.GetFiles("*.parquet.backup", SearchOption.TopDirectoryOnly);
+                files.AddRange(backupFiles);
+            }
+
+            _logger.LogInformation($"Found [{files.Count}] parquet files in the landing folder.");
+            
+            return files;
+        }
+
+        internal static List<FileInfo> GetParquetFilesFromBronzeZone(bool includingBackups = false)
+        {
+            var directory = new DirectoryInfo(BronsePath.FullName);
+            _logger.LogDebug("Reading files from source directory [{directory}]", directory);
+
+            var files = directory.GetFiles("*.parquet", SearchOption.TopDirectoryOnly).ToList();
+
+            if (includingBackups)
+            {
+                var backupFiles = directory.GetFiles("*.parquet.backup", SearchOption.TopDirectoryOnly);
+                files.AddRange(backupFiles);
+            }
+
+            _logger.LogInformation($"Found [{files.Count}] parquet files in the landing folder.");
+            
+            return files;
+        }
     }
 }

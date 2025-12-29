@@ -6,9 +6,9 @@ namespace Azure.Updates.Importer.Cli
 {
     public class ParquetHandler
     {
-        public List<RssFeed> ReadRssFeedsFromParquetFile(string filePath)
+        public List<ReleaseCommunicationItem> ReadRssFeedsFromParquetFile(string filePath)
         {
-            var data = new List<RssFeed>();
+            var data = new List<ReleaseCommunicationItem>();
 
             using (var reader = new ParquetFileReader(filePath))
             {
@@ -27,7 +27,7 @@ namespace Azure.Updates.Importer.Cli
 
                         for (int i = 0; i < ids.Length; i++)
                         {
-                            data.Add(new RssFeed
+                            data.Add(new ReleaseCommunicationItem
                             { 
                                 Id = ids[i],
                                 Title = titles[i],
@@ -44,11 +44,11 @@ namespace Azure.Updates.Importer.Cli
             return data;
         }
 
-        public void WriteRawRssFeedsToParquetFile(string filePath, List<RssFeed> feeds)
+        public void WriteRawRssFeedsToParquetFile(string filePath, List<ReleaseCommunicationItem> feeds)
         {
             if (feeds.Count == 0)
             {
-                AnsiConsoleLogger.LogWarning("No feeds to write to parquet file");
+                AnsiConsoleLogger.LogDebug("No items in collection. No feeds to write to parquet file");
                 return;
             }
 

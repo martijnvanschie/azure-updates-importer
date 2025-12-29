@@ -29,7 +29,7 @@ Include the schema name (e.g., `dbo.`).
 
 #### Azure resource
 
-Microsoft offers a json verion of the API which provides more details about the feed then the XML version.
+Microsoft offers a json version of the API which provides more details about the feed then the XML version.
 
 - https://www.microsoft.com/releasecommunications/api/v2/azure
 

@@ -37,7 +37,7 @@ namespace Azure.Updates.Importer.Cli
                 //    command.AddCommands(config);
                 //}
 
-                config.AddCommand<Commands.ImportAzureFeedsCommand>("import")
+                config.AddCommand<Commands.ImportAzureFeedsV2Command>("import")
                     .WithDescription("Import raw Azure updates feeds data into the landing zone")
                     .WithExample(new[] { "import" });
 
@@ -52,6 +52,10 @@ namespace Azure.Updates.Importer.Cli
                 config.AddCommand<Commands.VerifyCommand>("verify")
                     .WithDescription("Verify the integrity of the landing zone and bronze data")
                     .WithExample(new[] { "verify" });
+
+                config.AddCommand<Commands.ImportAzureFeedsCommand>("importold")
+                    .WithDescription("Import raw Azure updates feeds data into the landing zone using version 2")
+                    .WithExample(new[] { "importold" });                    
 
                 config.ValidateExamples();
 
