@@ -42,6 +42,8 @@ namespace Azure.Updates.Importer.Cli.Tasks
                 StatusContext?.Status("Writing information to parquet.");
                 await WriteToParquetAsync(releaseCommunicationItems);
 
+                await Utils.WriteLastImportTimeAsync(ImporterContext.DateImport);
+
                 return 1;
             }
             catch (System.Exception ex)

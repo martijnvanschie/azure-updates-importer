@@ -1,11 +1,15 @@
-﻿using ParquetSharp;
+﻿using Azure.Updates.Importer.Cli.Core;
 using Azure.Updates.Importer.Cli.Model;
-using Azure.Updates.Importer.Cli.Core;
+using Azure.Updates.Importer.Cli.Tasks;
+using Microsoft.Extensions.Logging;
+using ParquetSharp;
 
 namespace Azure.Updates.Importer.Cli
 {
     public class ParquetHandler
     {
+        private static readonly ILogger<ParquetHandler> _logger = LoggerManager.GetLogger<ParquetHandler>();
+
         public List<ReleaseCommunicationItem> ReadRssFeedsFromParquetFile(string filePath)
         {
             var data = new List<ReleaseCommunicationItem>();
@@ -85,8 +89,8 @@ namespace Azure.Updates.Importer.Cli
                     using var categories = rowGroupWriter.NextColumn().LogicalWriter<string>();
                     categories.WriteBatch(feeds.ConvertAll(p => p.Categories).ToArray());
                 }
-
                 writer.Close();
+                _logger.LogInformation("Finished writing feeds to parquet file {filePath}", filePath);
             }
         }
 

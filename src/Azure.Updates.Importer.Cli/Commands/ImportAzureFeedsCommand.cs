@@ -17,7 +17,7 @@ namespace Azure.Updates.Importer.Cli.Commands
 
         }
 
-        public override async Task<int> ExecuteAsync(CommandContext context, Settings settings)
+        public override async Task<int> ExecuteAsync(CommandContext context, Settings settings, CancellationToken cancellationToken)
         {
             AnsiConsoleLogger.LogInfo("importing Azure update feeds into parquet files.");
 

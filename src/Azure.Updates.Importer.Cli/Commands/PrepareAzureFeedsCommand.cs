@@ -17,7 +17,7 @@ namespace Azure.Updates.Importer.Cli.Commands
 
         }
 
-        public override async Task<int> ExecuteAsync(CommandContext context, Settings settings)
+        public override async Task<int> ExecuteAsync(CommandContext context, Settings settings, CancellationToken cancellationToken)
         {
             AnsiConsoleLogger.LogInfo("Preparing bronze data into silver data.");
 
