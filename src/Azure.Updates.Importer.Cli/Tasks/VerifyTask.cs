@@ -22,8 +22,7 @@ namespace Azure.Updates.Importer.Cli.Tasks
             var parquetFiles = ImporterContext.GetParquetFilesFromLandingZone(true);
             if (parquetFiles.Count == 0)
             {
-                AnsiConsoleLogger.LogInfo("No parquet files found in the landing folder. Exiting process.");
-                return 0;
+                AnsiConsoleLogger.LogInfo("No parquet files found in the landing folder.", _logger);
             }
 
             foreach (var item in parquetFiles)
@@ -31,16 +30,16 @@ namespace Azure.Updates.Importer.Cli.Tasks
                 AnsiConsoleLogger.LogDebug($"Processing file [{item.Name}], imported at [{item.CreationTime}].", _logger);
                 var feeds = ph.ReadRssFeedsFromParquetFile(item.FullName);
                 var newFeeds = feeds.Where(feed => !_mergedList.Contains(feed));
+
+                AnsiConsoleLogger.LogDebug($"Found [{feeds.Count}] entries in file [{item.Name}] of which [{newFeeds.Count()}] are unique feeds.", _logger);
                 _mergedList.AddRange(newFeeds);
             }
-
             AnsiConsoleLogger.LogInfo($"Found total of [{_mergedList.Count}] unique feeds in Landing Zone files", _logger);
 
             var parquetFiles2 = ImporterContext.GetParquetFilesFromBronzeZone(true);
             if (parquetFiles2.Count == 0)
             {
-                AnsiConsoleLogger.LogInfo("No parquet files found in the landing folder. Exiting process.");
-                return 0;
+                AnsiConsoleLogger.LogInfo("No parquet files found in the landing folder.", _logger);
             }
 
             foreach (var item in parquetFiles2)
@@ -57,17 +56,6 @@ namespace Azure.Updates.Importer.Cli.Tasks
             AnsiConsoleLogger.LogInfo($"There are [{count}] records in the database.", _logger);
 
             return 0;
-        }
-
-        private List<FileInfo> GetParquetFilesFromBronzeZone()
-        {
-            var directory = new DirectoryInfo(ImporterContext.BronsePath.FullName);
-            _logger.LogDebug("Reading files from source directory [{directory}]", directory);
-
-            var files = directory.GetFiles("*.parquet*", SearchOption.TopDirectoryOnly).ToList();
-            _logger.LogInformation($"Found [{files.Count}] parquet files in the landing folder.");
-
-            return files;
         }
     }
 }

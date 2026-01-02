@@ -44,11 +44,14 @@ namespace Azure.Updates.Importer.Cli.Tasks
                 AnsiConsoleLogger.LogDebug($"Processing file [{item.Name}], imported at [{item.CreationTime}].", _logger);
                 var feeds = ph.ReadRssFeedsFromParquetFile(item.FullName);
                 var newFeeds = feeds.Where(feed => !_mergedList.Contains(feed));
+
+                AnsiConsoleLogger.LogDebug($"Found [{feeds.Count}] entries in file [{item.Name}] of which [{newFeeds.Count()}] are unique feeds.", _logger);
                 _mergedList.AddRange(newFeeds);
             }
 
             AnsiConsoleLogger.LogDebug($"Writing merged file [{outputFile}]", _logger);
             ph.WriteRawRssFeedsToParquetFile(outputFile, _mergedList);
+
             AnsiConsoleLogger.LogInfo($"Succesfully written [{_mergedList.Count}] merged feeds to file [{outputFile}].", _logger);
 
             foreach (var item in parquetFiles)

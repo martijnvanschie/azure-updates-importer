@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Azure.Updates.Importer.Cli.Tasks;
+using Microsoft.Extensions.Logging;
 using Serilog.Core;
 using Spectre.Console;
 using System;
@@ -11,6 +12,8 @@ namespace Azure.Updates.Importer.Cli.Core
 {
     internal class AnsiConsoleLogger
     {
+        private static readonly ILogger<AnsiConsoleLogger> _logger = LoggerManager.GetLogger<AnsiConsoleLogger>();
+
         public static void LogInfo(string message, ILogger? logger = null)
         {
             AnsiConsole.MarkupLine($"[green]{message.EscapeMarkup()}[/]");
@@ -39,7 +42,10 @@ namespace Azure.Updates.Importer.Cli.Core
 
         public static void LogDebug(string message, ILogger? logger = null)
         {
-            AnsiConsole.MarkupLine($"[grey]{message.EscapeMarkup()}[/]");
+            if (_logger.IsEnabled(LogLevel.Debug))
+            {
+                AnsiConsole.MarkupLine($"[grey]{message.EscapeMarkup()}[/]");
+            }
 
             if (logger is not null)
             {
