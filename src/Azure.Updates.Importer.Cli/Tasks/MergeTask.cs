@@ -27,7 +27,7 @@ namespace Azure.Updates.Importer.Cli.Tasks
 
             if (fi.Exists)
             {
-                AnsiConsoleLogger.LogDebug($"File [{outputFile}] already exists. Reading file for merger.", _logger);
+                AnsiConsoleLogger.LogDebug($"Output file [{outputFile}] in bronze layer already exists. Reading file for merger.", _logger);
                 _mergedList = ph.ReadRssFeedsFromParquetFile(fi.FullName);
             }
 

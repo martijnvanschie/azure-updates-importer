@@ -17,5 +17,16 @@ namespace Azure.Updates.Importer.Cli.Core
             int weekNumber = calendar.GetWeekOfYear(date, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
             return weekNumber;
         }
+
+        public static string ToUniversalDateTimeTimetString(DateTime date)
+        {
+            string formattedDate = date.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ");
+            return formattedDate;
+        }
+
+        public static DateTime FromUnversalDateTimeString(string unversalDateTimeString)
+        {
+            return DateTime.ParseExact(unversalDateTimeString, "R", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal);
+        }
     }
 }

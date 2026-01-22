@@ -56,6 +56,62 @@ namespace Azure.Updates.Importer.Cli.Core
             return allUpdates;
         }
 
+
+
+        public async Task<JsonDocument> GetReleaseCommunicationsJsonAsync(string? url = null, string? id = null, int? maxResults = null, DateTime? modifiedSince = null)
+        {
+            try
+            {
+                using var httpClient = new HttpClient();
+
+                // Build URL based on parameters
+                string requestUrl = _updatesUrl.AbsoluteUri + "?";
+
+                if (maxResults.HasValue)
+                {
+                    requestUrl += $"$top={maxResults.Value}&";
+                }
+
+                if (!string.IsNullOrEmpty(id))
+                {
+                    // Filter by specific ID using OData query
+                    requestUrl += $"$filter=id eq '{id}'&";
+                }
+
+                if (modifiedSince.HasValue)
+                {
+                    string formattedDate = modifiedSince.Value.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ");
+                    string filter = $"$filter=modified ge {formattedDate}";
+                    requestUrl += $"{filter}&";
+                }
+
+                // Override URL if provided
+                if (!string.IsNullOrEmpty(url))
+                {
+                    requestUrl = url;
+                }
+
+                _logger.LogInformation("Calling ReleaseCommunications API: {url}", requestUrl);
+
+                var response = await httpClient.GetAsync(requestUrl);
+                response.EnsureSuccessStatusCode();
+
+                var jsonContent = await response.Content.ReadAsStringAsync();
+
+                return JsonDocument.Parse(jsonContent);
+            }
+            catch (HttpRequestException ex)
+            {
+                _logger.LogError(ex, "Failed to retrieve release communications from API");
+                throw;
+            }
+            catch (JsonException ex)
+            {
+                _logger.LogError(ex, "Failed to parse release communications response");
+                throw;
+            }
+        }
+
         public async Task<ReleaseCommunicationsResponse> GetAzureUpdatesAsync(string? url = null, string? id = null)
         {
             try

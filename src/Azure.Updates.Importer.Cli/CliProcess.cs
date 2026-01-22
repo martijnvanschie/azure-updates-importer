@@ -55,7 +55,11 @@ namespace Azure.Updates.Importer.Cli
 
                 config.AddCommand<Commands.ImportAzureFeedsCommand>("importold")
                     .WithDescription("Import raw Azure updates feeds data into the landing zone using version 2")
-                    .WithExample(new[] { "importold" });                    
+                    .WithExample(new[] { "importold" });
+
+                config.AddCommand<Commands.QueryCommand>("query")
+                    .WithDescription("Query the release communications api")
+                    .WithExample(new[] { "query" });
 
                 config.ValidateExamples();
 
